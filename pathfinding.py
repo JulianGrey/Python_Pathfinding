@@ -1,7 +1,7 @@
 class Map():
     list_grid_cells = []
-    num_cols = 40
-    num_rows = 40
+    num_cols = 15
+    num_rows = 8
 
     for y in range(num_rows):
         for x in range(num_cols):
@@ -32,8 +32,8 @@ def pathfinding():
     my_map = Map()
     list_cells = my_map.list_grid_cells
 
-    start_cell = (36, 24)
-    destination = (5, 36)
+    start_cell = (15, 3)
+    destination = (5, 7)
 
     open_cells = []
     closed_cells = []
@@ -76,6 +76,8 @@ def pathfinding():
         if current_cell == destination:
             break
 
+    print 'Start position: ' + str(start_cell) + \
+          ' | Destination: ' + str(destination)
     print closed_cells
 
 

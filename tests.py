@@ -27,7 +27,7 @@ class TestPathfinding(unittest.TestCase):
         self.test_map = MapNoObstacles(10, 10)
 
     def test_out_of_bounds(self):
-
+        pass
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-class MapWithObstacles(object):
+class MapNoObstacles(object):
     def __init__(self, rows=0, columns=0):
         self.num_rows = rows
         self.num_cols = columns
@@ -7,13 +7,7 @@ class MapWithObstacles(object):
     def build_map(self):
         for y in range(self.num_rows):
             for x in range(self.num_cols):
-                if x == 5:
-                    if y > 0 and y < 9:
-                        self.list_grid_cells.append((x, y, False))
-                    else:
-                        self.list_grid_cells.append((x, y, True))
-                else:
-                    self.list_grid_cells.append((x, y, True))
+                self.list_grid_cells.append((x, y, True))
         return self.list_grid_cells
 
     def draw_map(self):
@@ -31,7 +25,7 @@ class MapWithObstacles(object):
                     print 'o',
 
 
-class MapNoObstacles(object):
+class MapWithObstacles(object):
     def __init__(self, rows=0, columns=0):
         self.num_rows = rows
         self.num_cols = columns
@@ -40,7 +34,13 @@ class MapNoObstacles(object):
     def build_map(self):
         for y in range(self.num_rows):
             for x in range(self.num_cols):
-                self.list_grid_cells.append((x, y, True))
+                if x == 5:
+                    if y > 0 and y < 9:
+                        self.list_grid_cells.append((x, y, False))
+                    else:
+                        self.list_grid_cells.append((x, y, True))
+                else:
+                    self.list_grid_cells.append((x, y, True))
         return self.list_grid_cells
 
     def draw_map(self):

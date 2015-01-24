@@ -1,7 +1,7 @@
 class MapNoObstacles(object):
-    def __init__(self, rows=0, columns=0):
-        self.num_rows = rows
+    def __init__(self, columns=0, rows=0):
         self.num_cols = columns
+        self.num_rows = rows
         self.list_grid_cells = []
 
     def build_map(self):
@@ -26,9 +26,9 @@ class MapNoObstacles(object):
 
 
 class MapWithObstacles(object):
-    def __init__(self, rows=0, columns=0):
-        self.num_rows = rows
+    def __init__(self, columns=0, rows=0):
         self.num_cols = columns
+        self.num_rows = rows
         self.list_grid_cells = []
 
     def build_map(self):

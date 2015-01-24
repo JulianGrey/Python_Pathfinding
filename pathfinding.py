@@ -1,31 +1,4 @@
-class Map():
-    list_grid_cells = []
-    num_cols = 11
-    num_rows = 10
-
-    for y in range(num_rows):
-        for x in range(num_cols):
-            if x == 5:
-                if y > 0 and y < 9:
-                    list_grid_cells.append((x, y, False))
-                else:
-                    list_grid_cells.append((x, y, True))
-            else:
-                list_grid_cells.append((x, y, True))
-
-
-def draw_map(selected_map):
-    for cell in selected_map.list_grid_cells:
-        if (cell[0] + 1) % selected_map.num_cols == 0:
-            if cell[2] is False:
-                print 'x'
-            else:
-                print 'o'
-        else:
-            if cell[2] is False:
-                print 'x',
-            else:
-                print 'o',
+from base_maps import MapWithObstacles, MapNoObstacles
 
 
 def find_adjacent_cells(current_cell):
@@ -41,7 +14,8 @@ def find_adjacent_cells(current_cell):
 
 
 def pathfinding():
-    my_map = Map()
+    my_map = MapoObstacles(12, 10)
+    my_map.draw_map()
     list_cells = my_map.list_grid_cells
 
     start_cell = (15, 3)
@@ -88,9 +62,9 @@ def pathfinding():
         if current_cell == destination:
             break
 
-    print 'Start position: ' + str(start_cell) + \
-          ' | Destination: ' + str(destination)
-    print closed_cells
+    # print 'Start position: ' + str(start_cell) + \
+    #       ' | Destination: ' + str(destination)
+    # print closed_cells
 
 
 pathfinding()

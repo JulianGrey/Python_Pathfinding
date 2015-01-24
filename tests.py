@@ -1,7 +1,7 @@
 import unittest
 
 from base_maps import MapWithObstacles, MapNoObstacles
-# from pathfinder import pathfinding
+from pathfinder import pathfinding, find_adjacent_cells
 
 
 class TestMap(unittest.TestCase):
@@ -33,6 +33,15 @@ class TestPathfinding(unittest.TestCase):
     
     def setUp(self):
         self.test_map = MapNoObstacles(10, 10)
+
+    def test_adjacent_cells(self):
+        cell = (5, 5, True)
+        north_cell = (5, 4, True)
+        east_cell = (6, 5, True)
+        south_cell = (5, 6, True)
+        west_cell = (4, 5, True)
+        self.assertIn(north_cell,
+                      find_adjacent_cells(cell, self.test_map.build_map()))
 
 
 if __name__ == '__main__':

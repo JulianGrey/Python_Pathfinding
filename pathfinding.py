@@ -14,7 +14,7 @@ def find_adjacent_cells(current_cell):
 
 
 def pathfinding():
-    my_map = MapoObstacles(12, 10)
+    my_map = MapNoObstacles(12, 10)
     my_map.draw_map()
     list_cells = my_map.list_grid_cells
 

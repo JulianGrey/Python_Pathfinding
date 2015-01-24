@@ -1,3 +1,4 @@
+import time
 from base_maps import MapWithObstacles, MapNoObstacles
 
 
@@ -5,12 +6,14 @@ def find_adjacent_cells(current_cell):
     cell_x = current_cell[0]
     cell_y = current_cell[1]
 
-    cell_left = (cell_x - 1, cell_y)
-    cell_right = (cell_x + 1, cell_y)
-    cell_up = (cell_x, cell_y - 1)
-    cell_down = (cell_x, cell_y + 1)
+    cells = []
 
-    return [cell_left, cell_right, cell_up, cell_down]
+    cells.append((cell_x - 1, cell_y))
+    cells.append((cell_x + 1, cell_y))
+    cells.append((cell_x, cell_y - 1))
+    cells.append((cell_x, cell_y + 1))
+
+    return cells
 
 
 def pathfinding():
@@ -34,6 +37,7 @@ def pathfinding():
         open_cells.remove(current_cell)
 
     while current_cell is not destination:
+        # print closed_cells
         adj_cells = find_adjacent_cells(current_cell)
         open_cells.extend(adj_cells)
         selection = []

@@ -1,19 +1,31 @@
 class Map():
     list_grid_cells = []
-    num_cols = 15
-    num_rows = 8
+    num_cols = 11
+    num_rows = 10
 
     for y in range(num_rows):
         for x in range(num_cols):
-            list_grid_cells.append((x, y))
+            if x == 5:
+                if y > 0 and y < 9:
+                    list_grid_cells.append((x, y, False))
+                else:
+                    list_grid_cells.append((x, y, True))
+            else:
+                list_grid_cells.append((x, y, True))
 
 
 def draw_map(selected_map):
     for cell in selected_map.list_grid_cells:
         if (cell[0] + 1) % selected_map.num_cols == 0:
-            print 'o'
+            if cell[2] is False:
+                print 'x'
+            else:
+                print 'o'
         else:
-            print 'o',
+            if cell[2] is False:
+                print 'x',
+            else:
+                print 'o',
 
 
 def find_adjacent_cells(current_cell):

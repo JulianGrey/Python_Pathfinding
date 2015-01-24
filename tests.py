@@ -42,6 +42,12 @@ class TestPathfinding(unittest.TestCase):
         west_cell = (4, 5, True)
         self.assertIn(north_cell,
                       find_adjacent_cells(cell, self.test_map.build_map()))
+        self.assertIn(east_cell,
+                      find_adjacent_cells(cell, self.test_map.build_map()))
+        self.assertIn(south_cell,
+                      find_adjacent_cells(cell, self.test_map.build_map()))
+        self.assertIn(west_cell,
+                      find_adjacent_cells(cell, self.test_map.build_map()))
 
 
 if __name__ == '__main__':

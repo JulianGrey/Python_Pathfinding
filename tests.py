@@ -1,6 +1,7 @@
 import unittest
 
 from base_maps import MapWithObstacles, MapNoObstacles
+from pathfinder import pathfinding
 
 
 class TestMap(unittest.TestCase):
@@ -21,7 +22,12 @@ class TestMap(unittest.TestCase):
 
 
 class TestPathfinding(unittest.TestCase):
-    pass
+    
+    def setUp(self):
+        self.test_map = MapNoObstacles(10, 10)
+
+    def test_out_of_bounds(self):
+
 
 
 if __name__ == '__main__':

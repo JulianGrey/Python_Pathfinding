@@ -1,7 +1,7 @@
 import unittest
 
 from base_maps import MapWithObstacles, MapNoObstacles
-from pathfinder import pathfinding
+# from pathfinder import pathfinding
 
 
 class TestMap(unittest.TestCase):
@@ -20,14 +20,19 @@ class TestMap(unittest.TestCase):
         self.assertEqual(self.test_map.num_cols * self.test_map.num_rows,
                          len(self.test_map.build_map()))
 
+    def test_cell_exists(self):
+        cell = (5, 5, True)
+        self.assertIn(cell, self.test_map.build_map())
+
+    def test_cell_does_not_exist(self):
+        cell = (11, 3, True)
+        self.assertNotIn(cell, self.test_map.build_map())
+
 
 class TestPathfinding(unittest.TestCase):
     
     def setUp(self):
         self.test_map = MapNoObstacles(10, 10)
-
-    def test_out_of_bounds(self):
-        pass
 
 
 if __name__ == '__main__':

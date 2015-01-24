@@ -1,28 +1,31 @@
-import time
 from base_maps import MapWithObstacles, MapNoObstacles
 
 
-def find_adjacent_cells(current_cell):
+def find_adjacent_cells(current_cell, grid):
     cell_x = current_cell[0]
     cell_y = current_cell[1]
 
     cells = []
+    adj_cells = []
 
-    cells.append((cell_x - 1, cell_y))
-    cells.append((cell_x + 1, cell_y))
-    cells.append((cell_x, cell_y - 1))
-    cells.append((cell_x, cell_y + 1))
+    cells.append((cell_x - 1, cell_y, True))
+    cells.append((cell_x + 1, cell_y, True))
+    cells.append((cell_x, cell_y - 1, True))
+    cells.append((cell_x, cell_y + 1, True))
 
-    return cells
+    for cell in cells:
+        if cell in grid:
+            adj_cells.append(cell)
+
+    return adj_cells
 
 
 def pathfinding():
     my_map = MapNoObstacles(12, 10)
-    my_map.draw_map()
-    list_cells = my_map.list_grid_cells
+    list_cells = my_map.build_map()
 
-    start_cell = (15, 3)
-    destination = (5, 7)
+    start_cell = (0, 0, True)
+    destination = (11, 9, True)
 
     open_cells = []
     closed_cells = []
@@ -37,9 +40,12 @@ def pathfinding():
         open_cells.remove(current_cell)
 
     while current_cell is not destination:
-        # print closed_cells
-        adj_cells = find_adjacent_cells(current_cell)
-        open_cells.extend(adj_cells)
+        adj_cells = find_adjacent_cells(current_cell, list_cells)
+
+        for cell in adj_cells:
+            if cell not in open_cells:
+                open_cells.append(cell)
+
         selection = []
         next_cell = None
         next_cell_distance = None
@@ -66,9 +72,9 @@ def pathfinding():
         if current_cell == destination:
             break
 
-    # print 'Start position: ' + str(start_cell) + \
-    #       ' | Destination: ' + str(destination)
-    # print closed_cells
+    print 'Start position: ' + str(start_cell) + \
+          ' | Destination: ' + str(destination)
+    print closed_cells
 
 
 pathfinding()

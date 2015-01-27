@@ -1,31 +1,14 @@
+from adjacency import find_adjacent_cells
 from base_maps import MapNoObstacles
 
 
-start_cell = [0, 0, True]
-destination = [11, 9, True]
+start = [0, 0, True]
+target = [11, 9, True]
 my_map = MapNoObstacles(12, 10)
 
 
-def find_adjacent_cells(current_cell, grid):
-    cell_x = current_cell[0]
-    cell_y = current_cell[1]
-
-    cells = []
-    adj_cells = []
-
-    cells.append([cell_x - 1, cell_y, True, None])
-    cells.append([cell_x + 1, cell_y, True, None])
-    cells.append([cell_x, cell_y - 1, True, None])
-    cells.append([cell_x, cell_y + 1, True, None])
-
-    for cell in cells:
-        if cell in grid:
-            adj_cells.append(cell)
-    return adj_cells
-
-
-def find_path(map, start, finish):
-    list_cells = my_map.build_map()
+def find_path(defined_map, start, target):
+    list_cells = defined_map.build_map()
     open_cells = []
     closed_cells = []
     adj_cells = []
@@ -37,7 +20,7 @@ def find_path(map, start, finish):
         current_cell = closed_cells[-1]
         open_cells.remove(current_cell)
 
-    while current_cell is not destination:
+    while current_cell is not target:
         selection = []
         next_cell = []
         next_cell_distance = None
@@ -51,8 +34,8 @@ def find_path(map, start, finish):
                 selection.append(cell)
 
         for cell in selection:
-            distance = (abs(destination[0] - cell[0]) +
-                        abs(destination[1] - cell[1]))
+            distance = (abs(target[0] - cell[0]) +
+                        abs(target[1] - cell[1]))
             if not next_cell:
                 next_cell = cell
                 next_cell_distance = distance
@@ -70,12 +53,12 @@ def find_path(map, start, finish):
         closed_cells.append(current_cell_base)
         open_cells.remove(current_cell)
 
-        if current_cell_base == destination:
+        if current_cell_base == target:
             break
 
-    # print('Start position: ' + str(start_cell) +
-    #       ' | Destination: ' + str(destination))
-    # print closed_cells
+    print('Start position: ' + str(start) +
+          ' | Destination: ' + str(target))
+    print closed_cells
 
 
-find_path(my_map, start_cell, destination)
+find_path(my_map, start, target)

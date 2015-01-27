@@ -34,7 +34,7 @@ def pathfinding():
 
     open_cells.append(start_cell)
     closed_cells.append(start_cell)
-    
+
     if current_cell is None:
         current_cell = closed_cells[-1]
         open_cells.remove(current_cell)
@@ -53,10 +53,10 @@ def pathfinding():
         for cell in adj_cells:
             if cell not in closed_cells:
                 selection.append(cell)
-        
+
         for cell in selection:
-            distance = abs(destination[0] - cell[0]) + \
-                       abs(destination[1] - cell[1])
+            distance = (abs(destination[0] - cell[0]) +
+                        abs(destination[1] - cell[1]))
             if next_cell is None:
                 next_cell = cell
                 next_cell_distance = distance

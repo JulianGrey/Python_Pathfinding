@@ -30,7 +30,7 @@ class TestMap(unittest.TestCase):
 
 
 class TestPathfinding(unittest.TestCase):
-    
+
     def setUp(self):
         self.test_map = MapNoObstacles(10, 10)
 

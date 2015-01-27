@@ -1,7 +1,7 @@
 import unittest
 
-from base_maps import MapWithObstacles, MapNoObstacles
-from pathfinder import find_path, find_adjacent_cells
+from base_maps import MapNoObstacles
+from pathfinding import find_adjacent_cells
 
 
 class TestMap(unittest.TestCase):

@@ -8,10 +8,10 @@ def find_adjacent_cells(current_cell, grid):
     cells = []
     adj_cells = []
 
-    cells.append((cell_x - 1, cell_y, True))
-    cells.append((cell_x + 1, cell_y, True))
-    cells.append((cell_x, cell_y - 1, True))
-    cells.append((cell_x, cell_y + 1, True))
+    cells.append([cell_x - 1, cell_y, True])
+    cells.append([cell_x + 1, cell_y, True])
+    cells.append([cell_x, cell_y - 1, True])
+    cells.append([cell_x, cell_y + 1, True])
 
     for cell in cells:
         if cell in grid:
@@ -24,8 +24,8 @@ def pathfinding():
     my_map = MapNoObstacles(12, 10)
     list_cells = my_map.build_map()
 
-    start_cell = (0, 0, True)
-    destination = (11, 9, True)
+    start_cell = [0, 0, True]
+    destination = [11, 9, True]
 
     open_cells = []
     closed_cells = []

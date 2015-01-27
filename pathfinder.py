@@ -38,17 +38,15 @@ def find_path(map, start, finish):
         open_cells.remove(current_cell)
 
     while current_cell is not destination:
+        selection = []
+        next_cell = []
+        next_cell_distance = None
+
         adj_cells = find_adjacent_cells(current_cell, list_cells)
 
         for cell in adj_cells:
             if cell not in open_cells:
                 open_cells.append(cell)
-
-        selection = []
-        next_cell = []
-        next_cell_distance = None
-
-        for cell in adj_cells:
             if cell not in closed_cells:
                 selection.append(cell)
 

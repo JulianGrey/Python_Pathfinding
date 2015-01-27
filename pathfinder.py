@@ -72,8 +72,8 @@ def pathfinding():
         if current_cell == destination:
             break
 
-    print 'Start position: ' + str(start_cell) + \
-          ' | Destination: ' + str(destination)
+    print('Start position: ' + str(start_cell) +
+          ' | Destination: ' + str(destination))
     print closed_cells
 
 

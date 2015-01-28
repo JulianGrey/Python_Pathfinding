@@ -13,6 +13,7 @@ def find_path(defined_map, start, target):
     closed_cells = []
     adj_cells = []
     current_cell = []
+    distance_moved = 0
     open_cells.append(start)
     closed_cells.append(start)
 
@@ -22,9 +23,6 @@ def find_path(defined_map, start, target):
 
     while current_cell is not target:
         selection = []
-        next_cell = []
-        next_cell_distance = None
-
         adj_cells = find_adjacent_cells(current_cell, list_cells)
 
         for cell in adj_cells:
@@ -33,18 +31,7 @@ def find_path(defined_map, start, target):
             if cell not in closed_cells:
                 selection.append(cell)
 
-        for cell in selection:
-            distance = (abs(target[0] - cell[0]) +
-                        abs(target[1] - cell[1]))
-            if not next_cell:
-                next_cell = cell
-                next_cell_distance = distance
-            else:
-                if distance < next_cell_distance:
-                    next_cell = cell
-                    next_cell_distance = distance
-
-        current_cell = next_cell
+        current_cell = pathfinder(selection)
         if current_cell:
             current_cell_base = [
                 current_cell[0], current_cell[1], current_cell[2]
@@ -52,13 +39,34 @@ def find_path(defined_map, start, target):
         current_cell[3] = closed_cells[-1]
         closed_cells.append(current_cell_base)
         open_cells.remove(current_cell)
+        distance_moved += 1
 
         if current_cell_base == target:
             break
 
-    print('Start position: ' + str(start) +
-          ' | Destination: ' + str(target))
-    print closed_cells
+    print('\nStart position: ' + str(start) +
+          ' | Destination: ' + str(target) + '\n')
+    for cell in closed_cells:
+        print cell
+    print distance_moved
+
+
+def pathfinder(selection):
+    next_cell = []
+    next_cell_distance = None
+
+    for cell in selection:
+        distance = (abs(target[0] - cell[0]) +
+                    abs(target[1] - cell[1]))
+        if not next_cell:
+            next_cell = cell
+            next_cell_distance = distance
+        else:
+            if distance < next_cell_distance:
+                next_cell = cell
+                next_cell_distance = distance
+
+    return next_cell
 
 
 find_path(my_map, start, target)

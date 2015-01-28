@@ -36,7 +36,7 @@ def find_path(defined_map, start, target):
             current_cell_base = [
                 current_cell[0], current_cell[1], current_cell[2]
             ]
-        current_cell[3] = closed_cells[-1]
+        current_cell[5] = closed_cells[-1]
         closed_cells.append(current_cell_base)
         open_cells.remove(current_cell)
         distance_moved += 1

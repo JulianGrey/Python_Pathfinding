@@ -7,7 +7,7 @@ class MapNoObstacles(object):
     def build_map(self):
         for y in range(self.num_rows):
             for x in range(self.num_cols):
-                self.list_grid_cells.append([x, y, True, None])
+                self.list_grid_cells.append([x, y, True, 0, 0, None])
         return self.list_grid_cells
 
     def draw_map(self):
@@ -36,11 +36,15 @@ class MapWithObstacles(object):
             for x in range(self.num_cols):
                 if x == 5:
                     if y > 0 and y < 9:
-                        self.list_grid_cells.append([x, y, False, None])
+                        self.list_grid_cells.append(
+                            [x, y, False, 0, 0, None]
+                        )
                     else:
-                        self.list_grid_cells.append([x, y, True, None])
+                        self.list_grid_cells.append(
+                            [x, y, True, 0, 0, None]
+                        )
                 else:
-                    self.list_grid_cells.append([x, y, True, None])
+                    self.list_grid_cells.append([x, y, True, 0, 0, None])
         return self.list_grid_cells
 
     def draw_map(self):

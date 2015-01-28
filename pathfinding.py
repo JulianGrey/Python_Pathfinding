@@ -16,15 +16,14 @@ def find_path(defined_map, start, target):
     distance_moved = 0
     open_cells.append(start)
     closed_cells.append(start)
-
     if not current_cell:
         current_cell = closed_cells[-1]
         open_cells.remove(current_cell)
 
     while current_cell is not target:
         selection = []
-        adj_cells = find_adjacent_cells(current_cell, list_cells)
-
+        adj_cells = find_adjacent_cells(
+            current_cell, list_cells, distance_moved)
         for cell in adj_cells:
             if cell not in open_cells:
                 open_cells.append(cell)
@@ -54,7 +53,6 @@ def find_path(defined_map, start, target):
 def pathfinder(selection):
     next_cell = []
     next_cell_distance = None
-
     for cell in selection:
         distance = (abs(target[0] - cell[0]) +
                     abs(target[1] - cell[1]))
@@ -65,7 +63,6 @@ def pathfinder(selection):
             if distance < next_cell_distance:
                 next_cell = cell
                 next_cell_distance = distance
-
     return next_cell
 
 

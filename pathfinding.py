@@ -54,15 +54,15 @@ def pathfinder(selection):
     next_cell = []
     next_cell_distance = None
     for cell in selection:
-        distance = (abs(target[0] - cell[0]) +
-                    abs(target[1] - cell[1]))
+        cell[4] = (abs(target[0] - cell[0]) +
+                   abs(target[1] - cell[1]))
         if not next_cell:
             next_cell = cell
-            next_cell_distance = distance
+            next_cell_distance = cell[4]
         else:
-            if distance < next_cell_distance:
+            if cell[4] < next_cell_distance:
                 next_cell = cell
-                next_cell_distance = distance
+                next_cell_distance = cell[4]
     return next_cell
 
 

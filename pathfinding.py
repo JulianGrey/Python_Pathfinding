@@ -1,3 +1,4 @@
+from time import sleep
 from adjacency import find_adjacent_cells
 # from base_maps import MapNoObstacles
 from base_maps import MapWithObstacles
@@ -18,6 +19,7 @@ def find_path(defined_map, start, target):
     adj_cells = []
     current_cell = []
     distance_moved = 0
+    match = 0
     open_cells.append(start)
     closed_cells.append(start)
     if not current_cell:
@@ -30,10 +32,22 @@ def find_path(defined_map, start, target):
             current_cell, list_cells, distance_moved)
         for cell in adj_cells:
             cell_base = [cell[0], cell[1], cell[2]]
-            if cell_base not in open_cells:
-                open_cells.append(cell)
-            if cell_base not in closed_cells:
-                selection.append(cell)
+            if open_cells:
+                for open_cell in open_cells:
+                    open_cell_base = [open_cell[0], open_cell[1], open_cell[2]]
+                    if cell_base == open_cell_base:
+                        print 'Match'
+                        match += 1
+                if cell_base not in open_cells:
+                    open_cells.append(cell)
+                if cell_base not in closed_cells:
+                    selection.append(cell)
+                sleep(0)
+            else:
+                if cell_base not in open_cells:
+                    open_cells.append(cell)
+                if cell_base not in closed_cells:
+                    selection.append(cell)
 
         current_cell = pathfinder(selection)
         if current_cell:
@@ -47,11 +61,11 @@ def find_path(defined_map, start, target):
         if current_cell_base == target:
             break
 
-    print('\nStart position: ' + str(start) +
-          ' | Destination: ' + str(target) + '\n')
-    for cell in closed_cells:
-        print cell
-    print distance_moved
+    # print('\nStart position: ' + str(start) +
+    #       ' | Destination: ' + str(target) + '\n')
+    # for cell in closed_cells:
+    #     print cell
+    # print distance_moved
 
 
 def pathfinder(selection):

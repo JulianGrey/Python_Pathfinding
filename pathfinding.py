@@ -19,7 +19,6 @@ def find_path(defined_map, start, target):
     adj_cells = []
     current_cell = []
     distance_moved = 0
-    match = 0
     open_cells.append(start)
     closed_cells.append(start)
     if not current_cell:
@@ -29,15 +28,10 @@ def find_path(defined_map, start, target):
     while current_cell is not target:
         selection = []
         adj_cells = find_adjacent_cells(
-            current_cell, list_cells, distance_moved)
+            current_cell, list_cells, distance_moved, target)
         for cell in adj_cells:
             cell_base = [cell[0], cell[1], cell[2]]
             if open_cells:
-                for open_cell in open_cells:
-                    open_cell_base = [open_cell[0], open_cell[1], open_cell[2]]
-                    if cell_base == open_cell_base:
-                        print 'Match'
-                        match += 1
                 if cell_base not in open_cells:
                     open_cells.append(cell)
                 if cell_base not in closed_cells:
@@ -48,8 +42,33 @@ def find_path(defined_map, start, target):
                     open_cells.append(cell)
                 if cell_base not in closed_cells:
                     selection.append(cell)
-
-        current_cell = pathfinder(selection)
+        next_cell = []
+        next_cell_f_score = None
+        for cell in selection:
+            cell_base = [cell[0], cell[1], cell[2]]
+            if not next_cell:
+                next_cell = cell
+                next_cell_f_score = cell[3] + cell[4]
+            else:
+                for open_cell in open_cells:
+                    open_cell_base = [open_cell[0], open_cell[1], open_cell[2]]
+                    if cell_base == open_cell_base:
+                        cell_f_score = cell[3] + cell[4]
+                        open_cell_f_score = open_cell[3] + open_cell[4]
+                        # print open_cell_f_score, cell_f_score
+                        if open_cell_f_score < cell_f_score:
+                            open_cell_move_cost = open_cell[3]
+                            closed_cells = closed_cells[
+                                :(open_cell_move_cost - 1)
+                            ]
+                            closed_cells.append(open_cell)
+                            next_cell = open_cell
+                    else:
+                        if cell[3] + cell[4] < next_cell_f_score:
+                            next_cell = cell
+                            next_cell_f_score = cell[3] + cell[4]
+        # print '\n'
+        current_cell = next_cell
         if current_cell:
             current_cell_base = [
                 current_cell[0], current_cell[1], current_cell[2]
@@ -66,22 +85,6 @@ def find_path(defined_map, start, target):
     # for cell in closed_cells:
     #     print cell
     # print distance_moved
-
-
-def pathfinder(selection):
-    next_cell = []
-    next_cell_move_cost = None
-    for cell in selection:
-        cell[4] = (abs(target[0] - cell[0]) +
-                   abs(target[1] - cell[1]))
-        if not next_cell:
-            next_cell = cell
-            next_cell_move_cost = cell[4]
-        else:
-            if cell[4] < next_cell_move_cost:
-                next_cell = cell
-                next_cell_move_cost = cell[4]
-    return next_cell
 
 
 find_path(my_map, start, target)

@@ -7,23 +7,24 @@ from base_maps import MapWithObstacles
 # start = [0, 0, True]
 # target = [11, 9, True]
 # my_map = MapNoObstacles(12, 10)
-start = [2, 5, True]
-target = [9, 5, True]
+start = [0, 5, True]
+target = [11, 5, True]
 my_map = MapWithObstacles(12, 10)
 
 
 def find_path(defined_map, start, target):
     list_cells = defined_map.build_map()
-    open_cells = []
-    closed_cells = []
+    open_list = []
+    open_list_base = []
+    closed_list = []
     adj_cells = []
     current_cell = []
     distance_moved = 0
-    open_cells.append(start)
-    closed_cells.append(start)
+    open_list.append(start)
+    closed_list.append(start)
     if not current_cell:
-        current_cell = closed_cells[-1]
-        open_cells.remove(current_cell)
+        current_cell = closed_list[-1]
+        open_list.remove(current_cell)
 
     while current_cell is not target:
         selection = []
@@ -32,17 +33,31 @@ def find_path(defined_map, start, target):
         # print '\nCurrent cell: ' + str(current_cell)
         for cell in adj_cells:
             cell_base = [cell[0], cell[1], cell[2]]
-            if open_cells:
-                if cell_base not in open_cells:
-                    open_cells.append(cell)
-                if cell_base not in closed_cells:
+            if cell_base not in closed_list:
+                if cell_base in open_list_base:
+                    # if the adjacent cell is found in the open list
+                    found_cell = [obj for obj in open_list
+                                  if obj[0] == cell_base[0]
+                                  and obj[1] == cell_base[1]][0]
+                    # print found_cell
+                    # print closed_list.index(found_cell)
+                    if (found_cell[3] + found_cell[4] <
+                            cell[3] + cell[4]):
+                        # Found cell does not have a parent set to it
+                        # print 'Better path found'
+                        pass
+                else:
+                    # print 'Not found'
+                    pass
+                if cell_base not in open_list:
+                    open_list.append(cell)
+                    open_list_base.append(cell_base)
+                if cell_base not in closed_list:
                     selection.append(cell)
-                # sleep(0)
             else:
-                if cell_base not in open_cells:
-                    open_cells.append(cell)
-                if cell_base not in closed_cells:
-                    selection.append(cell)
+                pass
+        # sleep(1)
+
         next_cell = []
         next_cell_f_score = None
         # print 'Selection: ' + str(selection)
@@ -52,25 +67,18 @@ def find_path(defined_map, start, target):
                 next_cell = cell
                 next_cell_f_score = cell[3] + cell[4]
             else:
-                for open_cell in open_cells:
+                for open_cell in open_list:
                     open_cell_base = [open_cell[0], open_cell[1], open_cell[2]]
-                    # print set(cell).intersection(open_cell)
-                    # print('Considered cell: ' + str(cell) + ' | Open cell: '
-                    #       + str(open_cell))
-                    # print [i for i, j in zip(cell, open_cell) if i == j]
-                    # print cell, open_cell
-                    # print '\n'
-                    # sleep(1)
                     if cell_base == open_cell_base:
                         cell_f_score = cell[3] + cell[4]
                         open_cell_f_score = open_cell[3] + open_cell[4]
                         # print open_cell_f_score, cell_f_score
                         if open_cell_f_score < cell_f_score:
                             open_cell_move_cost = open_cell[3]
-                            closed_cells = closed_cells[
+                            closed_list = closed_list[
                                 :(open_cell_move_cost - 1)
                             ]
-                            closed_cells.append(open_cell)
+                            closed_list.append(open_cell)
                             next_cell = open_cell
                     else:
                         if cell[3] + cell[4] < next_cell_f_score:
@@ -82,11 +90,12 @@ def find_path(defined_map, start, target):
             current_cell_base = [
                 current_cell[0], current_cell[1], current_cell[2]
             ]
-        current_cell[5] = closed_cells[-1]
-        closed_cells.append(current_cell_base)
-        open_cells.remove(current_cell)
+        current_cell[5] = closed_list[-1]
+        closed_list.append(current_cell_base)
+        open_list.remove(current_cell)
         distance_moved += 1
-        # print 'Chosen cell: ' + str(closed_cells[-1])
+        # print current_cell
+        # print 'Chosen cell: ' + str(closed_list[-1])
         # print '\n\n'
         # sleep(2)
         if current_cell_base == target:
@@ -94,7 +103,7 @@ def find_path(defined_map, start, target):
 
     # print('\nStart position: ' + str(start) +
     #       ' | Destination: ' + str(target) + '\n')
-    # for cell in closed_cells:
+    # for cell in closed_list:
     #     print cell
     # print distance_moved
 
